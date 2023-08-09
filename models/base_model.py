@@ -11,8 +11,8 @@ import models
 class BaseModel():
     def __init__(self, *args, **kwargs):
         if len(kwargs) != 0:
-            for key, value in kwargs.item():
-                if key == "__clas__":
+            for key, value in kwargs.items():
+                if key == "__class__":
                     continue
                 elif key == "created_at" or key == "updated_at":
                     setattr(self, key, datetime.fromisoformat(value))
@@ -21,14 +21,14 @@ class BaseModel():
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
-            self.updated_at =self.created_at
+            self.updated_at = self.created_at
 
         models.storage.new(self)
 
     def __str__(self):
         """ should print: [<class name>] (<self.id>) <self.__dict__>"""
-        name = self.__class__.__name__
-        return "[{} ({}) ()".format(name, self.id, self.__dict__)
+        n = self.__class__.__name__
+        return "[{}] ({}) {}".format(n, self.id, self.__dict__)
 
     def save(self):
         """
@@ -49,3 +49,7 @@ class BaseModel():
         new_dict['created_at'] = self.created_at.isoformat()
         new_dict['updated_at'] = self.updated_at.isoformat()
         return new_dict
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(**data)
