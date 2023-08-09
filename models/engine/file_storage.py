@@ -3,9 +3,10 @@
     and Mugisha Edson as a collaborator
 """
 import json
+from models.base_model import BaseModel
 
 
-class FileStorage:
+class FileStorage(BaseModel):
     __file_path = "file.json"
     __objects = {}
 
@@ -24,18 +25,12 @@ class FileStorage:
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        serialized_obj = {}
+        serialized_objs = {}
         for key, obj in self.__objects.items():
-            serialized_obj[key] = obj.to_dict()
+            serialized_objs[key] = obj.to_dict()
 
-        try:
-            with open(self.__file_path, "a") as file:
-                json.dump(serialized_obj, file)
-                file.write("\n")
-        except FileNotFoundError:
-            with open(self.__file_path, "w") as file:
-                json.dump(serialized_obj, file)
-                file.write("\n")
+        with open(self.__file_path, "w") as file:
+            json.dump(serialized_objs, file)
 
     def reload(self):
         """
@@ -45,11 +40,15 @@ class FileStorage:
         no exception should be raised)
         """
         try:
-            with open(self.__file_name, "r") as data:
-                loaded_obj = json.load(data)
+            with open(self.__file_path, "r") as f:
+                loaded_obj = json.load(f)
 
                 for key, obj in loaded_obj.items():
                     class_name, obj_id = key.split('.')
-                    self.__objects[key] = globals()[class_name](**obj)
+                    obj_class = globals().get(class_name)
+                    if obj_class:
+                        self.__objects[key] = obj_class(**obj)
+                    else:
+                        print("invalid class name")
         except FileNotFoundError:
             pass
