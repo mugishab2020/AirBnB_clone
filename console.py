@@ -75,6 +75,48 @@ class HBNBCommand(cmd.Cmd):
                 return False
             print([str(v) for k, v in models.storage.all().items()
                    if type(v) is self.clslist.get(arg)])
+    def do_update(self, line):
+        """
+        Updates an instance by adding or updating attribute
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
+        """
+        obj = storage.all()
+        objs_list = []
+        for key in obj.keys():
+            if (key.split(".")[0] not in objs_list):
+                objs_list.append(key.split(".")[0])
+        args = line.split(" ")
+        if line == "":
+            print("** class name missing **")
+        elif args[0] not in objs_list:
+            print("** class doesn't exist **")
+        elif len(args) < 2:
+            print("** instance id missing **")
+        else:
+            classname_id = args[0] + "." + args[1]
+            if classname_id not in obj.keys():
+                print("** no instance found **")
+            elif len(args) < 3:
+                print("** attribute name missing **")
+            elif len(args) < 4:
+                print("** value missing **")
+            else:
+                objs = obj[classname_id]
+                if args[3].startswith('"') and args[3].endswith('"'):
+                    setattr(objs, args[2], str(args[3][1:-1]))
+                elif args[3].startswith('"') and not args[3].endswith('"'):
+                    str_value = ""
+                    for arg in args[3:]:
+                        str_value += " " + arg
+                        if arg.endswith('"'):
+                            break
+                    print(str_value)
+                    setattr(objs, args[2], str(str_value[2:-1]))
+                elif "." in args[3]:
+                    setattr(objs, args[2], float(args[3]))
+                else:
+                    setattr(objs, args[2], int(args[3]))
+                storage.save()
 
 
     def do_quit(self,arg):
