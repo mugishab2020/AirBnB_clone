@@ -11,5 +11,9 @@ my_model_json = my_model.to_dict()
 print(my_model_json)
 print("JSON of my_model:")
 for key in my_model_json.keys():
+<<<<<<< HEAD
+        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+=======
     print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
 
+>>>>>>> 70d06a5f09a9aca4f4405fa40a6afe970fabfece
