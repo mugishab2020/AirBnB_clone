@@ -7,8 +7,8 @@ from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
-    intro = "Welcome to the HBNB command interpreter.
-            Type 'help' to show all available commands."
+    intro = "Welcome to the HBNB command interpreter." \
+            "Type 'help' to show all available commands."
 
     def do_create(self, clsname=None):
         """Creates the new instance of the BaseModel
@@ -44,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print(obj)
         args = None
-    
+
     def do_destroy(self, arg):
         """destroy instance based on id
         """
