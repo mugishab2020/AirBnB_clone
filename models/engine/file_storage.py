@@ -1,21 +1,8 @@
-<<<<<<< HEAD
-#/usr/bin/python3
-=======
 #!/usr/bin/python3
->>>>>>> 69484f08b76a16543763b64d802d04e33e285266
 """ created by Mugisha Prosper
     and Mugisha Edson as a collaborator
 """
 import json
-<<<<<<< HEAD
-
-
-class FileStorage:
-    __file_path
-    __objects
-
-    __init__(self):
-=======
 from models.base_model import BaseModel
 
 
@@ -24,32 +11,11 @@ class FileStorage(BaseModel):
     __objects = {}
 
     def __init__(self):
->>>>>>> 69484f08b76a16543763b64d802d04e33e285266
         """ FileStorage constructor"""
         pass
 
     def all(self):
         """ Returns the dictionary objects"""
-<<<<<<< HEAD
-        pass
-
-    def new(self, obj):
-        """  sets in __objects the obj with key <obj class name>.id"""
-        pass
-
-    def save(self):
-        """serializes __objects to the JSON file (path: __file_path)"""
-        pass
-
-    def reload(self):
-        """
-        deserializes the JSON file to __objects (only if the JSON file (__file_path) exists ;
-        otherwise, do nothing. If the file doesn’t exist, no exception should be raised)
-        """
-        pass
-
-
-=======
         return self.__objects
 
     def new(self, obj):
@@ -86,4 +52,3 @@ class FileStorage(BaseModel):
                         print("invalid class name")
         except FileNotFoundError:
             pass
->>>>>>> 69484f08b76a16543763b64d802d04e33e285266
