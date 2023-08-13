@@ -4,10 +4,13 @@ import cmd
 import models
 from models.base_model import BaseModel
 
+
 class HBNBCommand(cmd.Cmd):
-    prompt = "(hbnb)"
-    intro = "Welcome to the HBNB command interpreter.Type 'help' to show all available commands."
-    def do_create(self, clsname =None):
+    prompt = "(hbnb) "
+    intro = "Welcome to the HBNB command interpreter.
+            Type 'help' to show all available commands."
+
+    def do_create(self, clsname=None):
         """Creates the new instance of the BaseModel
         save it and print its id"""
         if not clsname:
@@ -18,6 +21,7 @@ class HBNBCommand(cmd.Cmd):
             obj = sel.clslist[clsname]()
             models.storage.save()
             print(obj.id)
+
     def do_show(self, arg):
         """Show instance based on id"""
         clsname, objid = None, None
@@ -39,6 +43,7 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
             else:
                 print(obj)
+        args = None
     
     def do_destroy(self, arg):
         """destroy instance based on id
@@ -63,6 +68,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 del models.storage.all()[k]
                 models.storage.save()
+        args = None
 
     def do_all(self, arg):
         """Prints all instances based or not on the class name
@@ -75,6 +81,7 @@ class HBNBCommand(cmd.Cmd):
                 return False
             print([str(v) for k, v in models.storage.all().items()
                    if type(v) is self.clslist.get(arg)])
+
     def do_update(self, line):
         """
         Updates an instance by adding or updating attribute
@@ -118,18 +125,19 @@ class HBNBCommand(cmd.Cmd):
                     setattr(objs, args[2], int(args[3]))
                 storage.save()
 
-
-    def do_quit(self,arg):
-        """exiting the consol"""
+    def do_quit(self, arg):
+        """Quit command to exit the program\n"""
         return True
+
     def do_EOF(self, arg):
         """exting also"""
         print()
         return True
+
     def empyline(self):
         """help command"""
         pass
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
