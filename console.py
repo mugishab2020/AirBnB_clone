@@ -3,22 +3,29 @@
 import cmd
 import models
 from models.base_model import BaseModel
+from models.city import City
+from models.user import User
+from models.state import State
+from models.place import Place
+from models.review import Review
+from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     intro = "Welcome to the HBNB command interpreter." \
             "Type 'help' to show all available commands."
+    class_list = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City, "Place": Place, "Review": Review, "State": State, "User": User}
 
     def do_create(self, clsname=None):
         """Creates the new instance of the BaseModel
         save it and print its id"""
         if not clsname:
             print('** class name missing **')
-        elif not sel.clslist.get(clsname):
+        elif not self.class_list.get(clsname):
             print('** class doesn\'t exist **')
         else:
-            obj = sel.clslist[clsname]()
+            obj = self.class_list[clsname]()
             models.storage.save()
             print(obj.id)
 
@@ -34,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
             print('** class name missing **')
         elif not objid:
             print('** instance id missing **')
-        elif not self.clslist.get(clsname):
+        elif not self.class_list.get(clsname):
             print("** class doesn't exist **")
         else:
             k = clsname + "." + objid
@@ -58,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
             print('** class name missing **')
         elif not objid:
             print('** instance id missing **')
-        elif not self.clslist.get(clsname):
+        elif not self.class_list.get(clsname):
             print("** class doesn't exist **")
         else:
             k = clsname + "." + objid
@@ -76,11 +83,11 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print([str(v) for k, v in models.storage.all().items()])
         else:
-            if not self.clslist.get(arg):
+            if not self.class_list.get(arg):
                 print("** class doesn't exist **")
                 return False
             print([str(v) for k, v in models.storage.all().items()
-                   if type(v) is self.clslist.get(arg)])
+                   if type(v) is self.class_list.get(arg)])
 
     def do_update(self, line):
         """
