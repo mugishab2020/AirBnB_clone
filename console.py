@@ -126,11 +126,13 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_quit(self, arg):
-        """Quit command to exit the program\n"""
+        """Quit command to exit the program\n
+        """
         return True
 
     def do_EOF(self, arg):
-        """exting also"""
+        """exting also
+        """
         return True
 
     def emptyline(self):
