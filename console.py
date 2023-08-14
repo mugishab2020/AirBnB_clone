@@ -133,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
         """exting also"""
         return True
 
-    def empyline(self):
+    def emptyline(self):
         """help command"""
         pass
 
