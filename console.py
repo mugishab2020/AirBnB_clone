@@ -131,7 +131,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """exting also"""
-        print()
         return True
 
     def empyline(self):
