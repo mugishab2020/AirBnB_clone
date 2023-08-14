@@ -3,10 +3,20 @@
 import cmd
 import models
 from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.user import User
+from datetime import datetime
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
     intro = "Welcome to the HBNB command interpreter.Type 'help' to show all available commands."
+    """clslist = {'BaseModel': BaseModel, 'State': State, 'City': City,
+               'Amenity': Amenity, 'Place': Place, 'Review': Review,
+               'User': User}"""
     def do_create(self, clsname =None):
         """Creates the new instance of the BaseModel
         save it and print its id"""
@@ -124,7 +134,6 @@ class HBNBCommand(cmd.Cmd):
         return True
     def do_EOF(self, arg):
         """exting also"""
-        print()
         return True
     def empyline(self):
         """help command"""
