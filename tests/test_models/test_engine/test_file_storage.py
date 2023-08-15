@@ -7,6 +7,7 @@
 import unittest
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from datetime import datetime
 import os
 
 
@@ -60,6 +61,7 @@ class TestFileStorage(unittest.TestCase):
         obj_all = new_storage.all()
 
         self.assertEqual(len(obj_all), 4)
+        self.assertIn(obj.__class__.__name__ + "." + obj.id, obj_all)
 
         # test when there is more than one element
         obj1 = BaseModel()
