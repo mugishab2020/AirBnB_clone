@@ -86,8 +86,9 @@ class HBNBCommand(cmd.Cmd):
             if not self.class_list.get(arg):
                 print("** class doesn't exist **")
                 return False
-            print([str(v) for k, v in models.storage.all().items()
-                   if type(v) is self.class_list.get(arg)])
+            if arg == "BaseModel":
+                print([str(v) for k, v in models.storage.all().items()
+                    if type(v) is self.class_list.get(arg)])
 
     def do_update(self, line):
         """
@@ -138,11 +139,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, arg):
-    
         """EOF signal to exit the program."""
-
         print("")
-
         return True
 
     def emptyline(self):
