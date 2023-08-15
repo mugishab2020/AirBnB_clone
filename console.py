@@ -94,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance by adding or updating attribute
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
-        obj = storage.all()
+        obj = models.storage.all()
         objs_list = []
         for key in obj.keys():
             if (key.split(".")[0] not in objs_list):
@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
                     setattr(objs, args[2], float(args[3]))
                 else:
                     setattr(objs, args[2], int(args[3]))
-                storage.save()
+                models.storage.save()
 
     def do_quit(self, arg):
         """Quit command to exit the program\n
