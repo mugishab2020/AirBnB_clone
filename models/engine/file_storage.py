@@ -49,6 +49,6 @@ class FileStorage(BaseModel):
                     if obj_class:
                         self.__objects[key] = obj_class(**obj)
                     else:
-                        print("invalid class name")
+                        pass
         except FileNotFoundError:
             pass
