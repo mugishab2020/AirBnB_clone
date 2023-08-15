@@ -140,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, arg):
         """Quit command to exit the program
         """
-        print("\n")
+        print("")
         return True
 
     def emptyline(self):
