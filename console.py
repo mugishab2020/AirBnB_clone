@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, arg):
-        """exting also
+        """Quit command to exit the program\n
         """
         return True
 
