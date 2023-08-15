@@ -62,15 +62,20 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(len(obj_all), 4)
 
         # test when there is more than one element
-        self.storage.new(obj)
-        self.storage.new(obj)
+        obj1 = BaseModel()
+        obj2 = BaseModel()
+        self.storage.new(obj1)
+        self.storage.new(obj2)
         self.storage.save()
 
         new_storage = FileStorage()
         new_storage.reload()
         obj_all = new_storage.all()
 
-        self.assertEqual(len(obj_all), 4)
+        self.assertEqual(len(obj_all), 6)
+        self.assertIn(obj.__class__.__name__ + "." + obj.id, obj_all)
+        self.assertIn(obj1.__class__.__name__ + "." + obj1.id, obj_all)
+        self.assertIn(obj2.__class__.__name__ + "." + obj2.id, obj_all)
 
     def test_invalid_class_reload(self):
         # Test reloading with invalid reload
